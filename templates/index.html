@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+    <title>Simple Storage DApp</title>
+</head>
+<body>
+    <style>
+        .last-block-number-section {
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+    
+        .simple-storage-section {
+            margin-top: 25px;
+        }
+    </style>
+    <h3>by use python :</h3>
+    <div class="container">
+       
+        <div class="last-block-number-section">
+            <h1>Last Block Number</h1>
+            <form id="myForm" action="/get_last_block_number" method="post">
+                <div class="form-group">
+                    <label for="rpc_url">RPC URL:</label>
+                    <input type="text" class="form-control" id="rpc_url" name="rpc_url" placeholder="Enter RPC URL">
+                </div>
+                <div class="form-group">
+                    <label for="usdt_address">USDT Address:</label>
+                    <input type="text" class="form-control" id="usdt_address" name="usdt_address" placeholder="Enter USDT Address">
+                </div>
+                <button type="submit" class="btn btn-primary">Get Last Block Number</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="simple-storage-section">
+            <h1>Simple Storage DApp</h1>
+            <form action="/set_message" method="post">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="message" placeholder="Enter message">
+                </div>
+                <button type="submit" class="btn btn-primary">Set Message</button>
+                <a href="/get_message" class="btn btn-info">Get Message</a>
+                <p id="message"></p>
+            </form>
+            <div>
+                <h3>url of Ganache is : HTTP://127.0.0.1:7545</h3>
+                <h3>smart contracts simplestorge.sol : </h3>
+                <p>// SPDX-License-Identifier: MIT</p>
+                <p>pragma solidity ^0.8.24;</p>
+        
+                <p>contract SimpleStorage {</p>
+                    <p>string message;</p>
+        
+                    <p>function setMessage(string memory _message) public {</p>
+                        <p>message = _message;</p>
+                    <p>}</p>
+        
+                    <p>function getMessage() public view returns (string memory) {</p>
+                        <p>return message;</p>
+                    <p>}</p>
+                <p>}</p>
+            </p>
+            </div>
+        </div>
+    </div>
+    <h3>by use js :</h3>
+    <div class="container">
+        
+        <div class="last-block-number-section-js">
+        <h1>Last Block Number</h1>
+        <p id="blockNumber"></p>
+
+        <script>
+            // Infura endpoint
+            const endpoint = 'https://mainnet.infura.io/v3/391b8fdade8f48db9260d59c9564cf59';
+            // Make a request to Infura to get the last block number
+            axios.post(endpoint, {
+                jsonrpc: '2.0',
+                method: 'eth_blockNumber',
+                params: [],
+                id: 1
+            })
+            .then(function (response) {
+                const blockNumber = parseInt(response.data.result, 16);
+                document.getElementById('blockNumber').textContent = 'Block Number: ' + blockNumber;
+            })
+            .catch(function (error) {
+                console.error('Error:', error);
+            });
+        </script>
+    </div>
+    
+
+    </div>
+
+   
+</html>
